@@ -22,11 +22,6 @@
   overflow: hidden;
 }
 
-input {
-  padding: 5px;
-  border-radius: 5px;
-}
-
 body {
   background-color: var(--bg-color);
   margin: 0;
@@ -45,6 +40,7 @@ button {
   cursor: pointer;
   background-color: transparent;
   border: none;
+  max-width: 20vw;
 }
 
 .nav-button {
@@ -78,20 +74,12 @@ button {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.menu-nav {
-  text-align: center;
-  border-radius: 20px;
+.card {
   display: flex;
-  justify-content: center;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #2d2d34;
-  width: fit-content;
-}
-
-.menu-nav li{
-  
-
+  align-items: center;
+  margin-top: 10vh;
+  background-color: var(--bg-color-2);
+  padding: 2em;
+  height: 50vh;
+  width: 70vw;
 }

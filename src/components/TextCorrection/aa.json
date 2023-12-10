@@ -1,0 +1,15 @@
+{
+  "corrections": [
+    {
+      "text": "Doom",
+      "best_candidate": "room",
+      "candidates": ["boom", "room", "doom", "zoom", "loom"]
+    },
+    {
+      "text": "publisshed",
+      "best_candidate": "published",
+      "candidates": ["published"]
+    }
+  ],
+  "original_text": "Doom is a first-person shooter game developed and publisshed by id Software"
+}
