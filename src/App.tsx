@@ -1,30 +1,17 @@
 import { useState } from "react";
-import useGrammar from "./hooks/useGrammar";
 import "./App.css";
+import Menu from "./components/Menu";
+import TextCheck from "./components/TextCheck";
+import EbayCheck from "./components/EbayCheck";
+import PageEnum from "./enums/PageEnum";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const grammarResult = useGrammar();
-
+  const [page, setPage] = useState<PageEnum>(PageEnum.EbaySearch);
   return (
     <>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-
-      <div>
-        <h1>Grammar Check Result:</h1>
-        <pre>{grammarResult}</pre>
-      </div>
+      <h1>Ebay grammar checker</h1>
+      <Menu page={page} setPage={setPage} />
+      {page === PageEnum.EbaySearch ? <EbayCheck /> : <TextCheck />}
     </>
   );
 }
