@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 const getSpellChecking = (query: string) => {
   const myHeaders = new Headers();
   myHeaders.append("apikey", 'import.meta.env.VITE_SPELL_CHECKER_API_KEY');

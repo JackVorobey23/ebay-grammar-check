@@ -3,21 +3,32 @@ import getSpellChecking from "./helpers/getSpellChecking";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
   const [grammarResult, setGrammarResult] = useState("");
   const [inputText, setInputText] = useState("");
-
-  console.log(import.meta.env.VITE_SPELL_CHECKER_API_KEY);
   return (
     <>
       <h1>Ebay grammar checker</h1>
+      <div className="d-flex justify-content-evenly">
+        <h2>get text from:</h2>
+        <ul className="menu-nav">
+          <li>
+            <button className="nav-button">Ebay serch</button>
+          </li>
+          <li>
+            <button className="nav-button">From text</button>
+          </li>
+        </ul>
+      </div>
       <div className="card">
         <p>
           text for checking:
           <input onChange={(e) => setInputText(e.target.value)} />
         </p>
-        <p>{grammarResult == "" ? "\n" : `checking result: ${grammarResult}`}</p>
+        <p>
+          {grammarResult == "" ? "\n" : `checking result: ${grammarResult}`}
+        </p>
         <button
+          className="def-button"
           onClick={() => {
             const result = getSpellChecking(inputText)
               .then((r) => setGrammarResult(r))
