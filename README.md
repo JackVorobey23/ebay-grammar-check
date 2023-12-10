@@ -1,7 +1,7 @@
 # Ebay grammar checker
 **Requirements:** 
 
-Node.js v20.5.1
+[Node.js v20.5.1+](https://nodejs.org/en)
 
 **Installation:**
 
