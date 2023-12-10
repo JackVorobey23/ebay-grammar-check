@@ -1,6 +1,6 @@
 const getSpellChecking = (query: string) => {
   const myHeaders = new Headers();
-  myHeaders.append("apikey", 'import.meta.env.VITE_SPELL_CHECKER_API_KEY');
+  myHeaders.append("apikey", import.meta.env.VITE_SPELL_CHECKER_API_KEY);
 
   const requestOptions: RequestInit = {
     method: "GET",
@@ -16,7 +16,7 @@ const getSpellChecking = (query: string) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      return response.text();
+      return response.json();
     })
     .catch((error) => {
       console.error("Error fetching data:", error);

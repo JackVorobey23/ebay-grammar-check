@@ -2,8 +2,11 @@ import { useState } from "react";
 import getSpellChecking from "../../helpers/getSpellChecking";
 import "./styles.css";
 import TextCorrection from "../TextCorrection";
+import { TextCorrectionProps } from "../../interfaces/TextCorrection";
+
 const TextCheck = () => {
-  const [grammarResult, setGrammarResult] = useState("");
+  const [grammarResult, setGrammarResult] =
+    useState<TextCorrectionProps | null>();
   const [inputText, setInputText] = useState("");
   return (
     <div className="card">
@@ -14,19 +17,16 @@ const TextCheck = () => {
       <button
         className="def-button"
         onClick={() => {
-          const result = getSpellChecking(inputText)
-            .then((r) => setGrammarResult(r))
-            .catch(() => setGrammarResult("nigga"));
-          console.log(result);
+          getSpellChecking(inputText)
+            .then((r: TextCorrectionProps) => setGrammarResult(r))
+            .catch(() => setGrammarResult(null));
+          console.log(grammarResult);
         }}
       >
         Check text
       </button>
       <div className="checkResult mt-4">
-        <TextCorrection />
-        <p>
-          {grammarResult == "" ? "\n" : `checking result: ${grammarResult}`}
-        </p>
+        {grammarResult ? <TextCorrection {...grammarResult} /> : ""}
       </div>
     </div>
   );
