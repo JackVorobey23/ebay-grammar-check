@@ -10,7 +10,7 @@ const getUaSpellChecking = async (text: string) => {
         console.error("Error fetching data:", error);
         throw new Error("Failed to fetch data");
     });
-    const responseData = response.text();
+    const responseData = await response.text();
 
     return responseData;
 };

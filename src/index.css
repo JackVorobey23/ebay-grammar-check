@@ -70,6 +70,11 @@ button {
   border-color: var(--prim-text-color);
 }
 
+.def-button:disabled {
+  background-color: #4d4d4d;
+  cursor: default;
+}
+
 .def-button:focus,
 .def-button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;

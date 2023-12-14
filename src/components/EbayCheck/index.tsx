@@ -1,15 +1,12 @@
 import { useState } from "react";
 import "./styles.css";
-import getSpellChecking from "../../helpers/getSpellChecking";
-import { TextCorrectionProps } from "../../interfaces/TextCorrection";
-import TextCorrection from "../TextCorrection";
 
 const EbayCheck = () => {
   const [fetching, setFetching] = useState(false);
-  const [resp, setResp] = useState([]);
+  const [goodsResp, setGoodsResp] = useState([]);
   const [amount, setAmount] = useState(1);
   const [req, setReq] = useState("");
-  const [grammarResult, setGrammarResult] = useState<TextCorrectionProps | null>();
+  const [incorrectWords, setIncorrectWords] = useState<string[]>([]);
 
   return (
     <div className="d-flex justify-content-between flex-row card align-items-stretch">
@@ -31,6 +28,7 @@ const EbayCheck = () => {
         </div>
         <button
           className="def-button"
+          disabled={fetching}
           onClick={async () => {
             setFetching(true);
             const response = await fetch(
@@ -41,45 +39,46 @@ const EbayCheck = () => {
               }
             );
             const data = await response.text();
-            setResp(JSON.parse(data));
+            setGoodsResp(JSON.parse(data));
             console.log(JSON.parse(data));
             setFetching(false);
           }}
         >
-          damn
+          {fetching ? "loading..." : "Get goods"}
         </button>
       </div>
       <div
         style={{
           width: "70%",
+          overflow: "auto",
+          maxHeight: "100%",
         }}
       >
-        {/* <div className="card">
-          <button
-            className="def-button"
-            onClick={() => {
-              if (resp.length === 0) {
-                return;
-              }
-              // getSpellChecking(inputText)
-              //   .then((r: TextCorrectionProps) => setGrammarResult(r))
-              //   .catch(() => setGrammarResult(null));
-            }}
-          >
-            Check text
-          </button>
-          <div className="checkResult mt-4">
-            {grammarResult ? <TextCorrection {...grammarResult} /> : ""}
-          </div>
-        </div> */}
         <p>Goods:</p>
-        {fetching
-          ? "loading..."
-          : resp.map((r, i) => (
-              <p key={i}>
-                {i + 1}. {r}
-              </p>
-            ))}
+        {goodsResp.map((r: string, i) => (
+          <div
+            key={i}
+            className="d-flex spelling-container justify-content-between"
+          >
+            <p>
+              {i + 1}.{" "}
+              {r
+                .split("")
+                .map((w: string) =>
+                  incorrectWords.includes(w) ? <div></div> : <p></p>
+                )}
+            </p>
+            <button
+              onClick={() => {
+                goodsResp[i];
+              }}
+              disabled={fetching}
+              className="def-button align-self-center"
+            >
+              check spelling
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );

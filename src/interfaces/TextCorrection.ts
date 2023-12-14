@@ -1,11 +1,15 @@
 
 export interface TextCorrectionProps {
     original_text: string;
-    corrections: Correction[];
+    wordBooleanMap: WordBooleanMap;
 }
 
 export interface Correction {
     text: string;
     best_candidate: string;
     candidates: string[];
+}
+
+export interface WordBooleanMap {
+    [key: string]: boolean;
 }
