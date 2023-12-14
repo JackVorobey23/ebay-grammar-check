@@ -60,14 +60,18 @@ const EbayCheck = () => {
             key={i}
             className="d-flex spelling-container justify-content-between"
           >
-            <p>
+            <div className="d-flex flex-wrap">
               {i + 1}.{" "}
-              {r
-                .split("")
-                .map((w: string) =>
-                  incorrectWords.includes(w) ? <div></div> : <p></p>
-                )}
-            </p>
+              {r.split("").map((w: string) => (
+                <div
+                  className={`${
+                    incorrectWords.includes(w) ? "incorrectWord" : ""
+                  }`}
+                >
+                  {w}
+                </div>
+              ))}
+            </div>
             <button
               onClick={() => {
                 goodsResp[i];
