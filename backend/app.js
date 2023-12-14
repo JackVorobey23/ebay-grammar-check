@@ -41,9 +41,8 @@ app.post('/olx', (req, res) => {
 app.post('/get-incorrect-words', async (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
 
-    console.log(req.query);
     const words = req.query.words.split(',');
-    const wordExistsObject = {};
+    const incorrectWords = [];
     console.time(`time for ${words.length} words checking`);
 
     try {
@@ -51,11 +50,11 @@ app.post('/get-incorrect-words', async (req, res) => {
             try {
                 const response = await got(`https://goroh.pp.ua/Тлумачення/${word}`);
                 const dom = new JSDOM(response.body);
-                const wordExists = !dom.window.document.querySelector('header.article-head').innerHTML.includes('не містить');
-                wordExistsObject[word] = wordExists;
-                console.log(wordExistsObject);
+                if (dom.window.document.querySelector('header.article-head').innerHTML.includes('не містить')) {
+                    incorrectWords.push(word)
+                }
             } catch (ex) {
-                wordExistsObject[word] = false;
+                incorrectWords.push(word)
                 console.log("DAMN!" + ex);
             }
         }));
@@ -63,9 +62,10 @@ app.post('/get-incorrect-words', async (req, res) => {
         console.error("Error occurred during Promise.all():", error);
     }
 
-    console.log("final:", wordExistsObject);
+    console.log("words:", req.query.words);
+    console.log("incorrect:", incorrectWords);
     console.timeEnd(`time for ${words.length} words checking`);
-    res.send(wordExistsObject);
+    res.send(JSON.stringify(incorrectWords));
 });
 
 app.listen(port, () => { });

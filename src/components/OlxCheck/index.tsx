@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "./styles.css";
+import getUaSpellChecking from "../../helpers/getUaSpellCheking";
 
-const EbayCheck = () => {
+const OlxCheck = () => {
   const [fetching, setFetching] = useState(false);
   const [goodsResp, setGoodsResp] = useState([]);
   const [amount, setAmount] = useState(1);
@@ -61,20 +62,31 @@ const EbayCheck = () => {
             className="d-flex spelling-container justify-content-between"
           >
             <div className="d-flex flex-wrap">
-              {i + 1}.{" "}
-              {r.split("").map((w: string) => (
-                <div
-                  className={`${
-                    incorrectWords.includes(w) ? "incorrectWord" : ""
-                  }`}
-                >
-                  {w}
-                </div>
-              ))}
+              <div>{i + 1}.</div>
+              {r
+                .split(/[` !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/)
+                .map((w: string) => {
+                  console.log(w, incorrectWords);
+                  return (
+                  <div
+                    className={`${
+                      incorrectWords.includes(w) ? "incorrectText" : ""
+                    }`}
+                  >
+                    {w}
+                  </div>
+                )})}
             </div>
             <button
-              onClick={() => {
-                goodsResp[i];
+              onClick={async () => {
+                const concrIncorrectWords = await getUaSpellChecking(
+                  goodsResp[i]
+                );
+
+                setIncorrectWords((incWords) =>
+                  incWords.concat(concrIncorrectWords)
+                );
+                console.log(incorrectWords);
               }}
               disabled={fetching}
               className="def-button align-self-center"
@@ -88,4 +100,4 @@ const EbayCheck = () => {
   );
 };
 
-export default EbayCheck;
+export default OlxCheck;

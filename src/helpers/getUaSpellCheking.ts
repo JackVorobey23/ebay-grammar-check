@@ -12,7 +12,7 @@ const getUaSpellChecking = async (text: string) => {
     });
     const responseData = await response.text();
 
-    return responseData;
+    return JSON.parse(responseData);
 };
 
 export default getUaSpellChecking;

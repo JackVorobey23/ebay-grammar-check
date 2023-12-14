@@ -1,0 +1,15 @@
+.spelling-container > button{
+    min-width: 160px;
+    height: 45px;
+}
+.spelling-container > p{
+    text-align: start;
+    width: auto;
+}
+
+.incorrectText {
+    border-bottom: 2px solid red;
+    background-color: rgba(255, 0, 0, 0.2);
+    padding: 0 4px;
+    cursor: pointer;
+}
