@@ -37,7 +37,7 @@ const TextCorrection = (props: TextCorrectionProps) => {
           ))}
         </div>
       </div>
-      <div className="d-flex flex-wrap">
+      <div className="d-flex flex-wrap overflow-auto h-75">
         {originalText.map((w, i) =>
           incorrectWords.includes(w) ? (
             <div

@@ -65,21 +65,26 @@ button {
   transition: border-color 0.25s;
 }
 
-.def-button:hover {
-  border-color: var(--prim-text-color);
-}
-
 .def-button:focus,
 .def-button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.def-button:enabled:hover {
+  border-color: var(--prim-text-color);
+}
+
+.def-button:disabled {
+  background-color: #4d4d4d;
+  cursor: default;
+}
+
 .card {
   display: flex;
   align-items: center;
-  margin-top: 10vh;
+  margin-top: 2vh;
   background-color: var(--bg-color-2);
-  padding: 2em;
-  height: 50vh;
+  padding: .5em 1em 3em 1em;
+  height: 60vh;
   width: 70vw;
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import getSpellChecking from "../../helpers/getSpellChecking";
+import { getSpellChecking } from "../../helpers/getSpellChecking";
 import "./styles.css";
 import TextCorrection from "../TextCorrection";
 import { TextCorrectionProps } from "../../interfaces/TextCorrection";
@@ -20,7 +20,6 @@ const TextCheck = () => {
           getSpellChecking(inputText)
             .then((r: TextCorrectionProps) => setGrammarResult(r))
             .catch(() => setGrammarResult(null));
-          console.log(grammarResult);
         }}
       >
         Check text
