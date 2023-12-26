@@ -14,7 +14,6 @@ app.post('/olx', (req, res) => {
     const searchString = req.query.reqsrt;
     const searchAmount = Number(req.query.amount);
 
-    console.log(searchString, searchAmount);
     const conqLink = `${link}/q-${searchString}/`;
 
     got(conqLink).then(response => {
@@ -33,7 +32,6 @@ app.post('/olx', (req, res) => {
             .slice(0, searchAmount);
 
     }).then((goodsInfoArray) => {
-        console.log(goodsInfoArray);
         res.send(JSON.stringify(goodsInfoArray));
     })
 })
@@ -43,7 +41,6 @@ app.post('/get-incorrect-words', async (req, res) => {
 
     const words = req.query.words.split(',');
     const incorrectWords = [];
-    console.time(`time for ${words.length} words checking`);
 
     try {
         await Promise.all(words.map(async (word, i) => {
@@ -55,16 +52,12 @@ app.post('/get-incorrect-words', async (req, res) => {
                 }
             } catch (ex) {
                 incorrectWords.push(word)
-                console.log("DAMN!" + ex);
             }
         }));
     } catch (error) {
         console.error("Error occurred during Promise.all():", error);
     }
 
-    console.log("words:", req.query.words);
-    console.log("incorrect:", incorrectWords);
-    console.timeEnd(`time for ${words.length} words checking`);
     res.send(JSON.stringify(incorrectWords));
 });
 

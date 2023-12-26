@@ -20,10 +20,7 @@ const OlxCheck = () => {
             min={1}
             max={5}
             defaultValue={1}
-            onChange={(e) => {
-              console.log(e.target.value);
-              setAmount(Number(e.target.value));
-            }}
+            onChange={(e) => setAmount(Number(e.target.value))}
           ></input>
           <span>{amount}</span>
         </div>
@@ -41,7 +38,6 @@ const OlxCheck = () => {
             );
             const data = await response.text();
             setGoodsResp(JSON.parse(data));
-            console.log(JSON.parse(data));
             setFetching(false);
           }}
         >
@@ -65,9 +61,7 @@ const OlxCheck = () => {
               <div>{i + 1}.</div>
               {r
                 .split(/[` !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/)
-                .map((w: string) => {
-                  console.log(w, incorrectWords);
-                  return (
+                .map((w: string) => (
                   <div
                     className={`${
                       incorrectWords.includes(w) ? "incorrectText" : ""
@@ -75,10 +69,11 @@ const OlxCheck = () => {
                   >
                     {w}
                   </div>
-                )})}
+                ))}
             </div>
             <button
               onClick={async () => {
+                setFetching(true);
                 const concrIncorrectWords = await getUaSpellChecking(
                   goodsResp[i]
                 );
@@ -86,7 +81,7 @@ const OlxCheck = () => {
                 setIncorrectWords((incWords) =>
                   incWords.concat(concrIncorrectWords)
                 );
-                console.log(incorrectWords);
+                setFetching(false);
               }}
               disabled={fetching}
               className="def-button align-self-center"
